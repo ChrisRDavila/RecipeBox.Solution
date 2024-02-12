@@ -1,0 +1,42 @@
+@{
+  Layout = "_Layout";
+}
+
+@using RecipeBox.Models
+@model RecipeBox.Models.Recipe
+
+<h2>Recipe Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
+<h3>@Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</h3>
+<h3>@Html.DisplayNameFor(model => model.Rating): @Html.DisplayFor(model => model.Rating)</h3>  
+<h3>@Html.DisplayNameFor(model => model.Ingredients): @Html.DisplayFor(model => model.Ingredients)</h3>  
+<h3>@Html.DisplayNameFor(model => model.Directions): @Html.DisplayFor(model => model.Directions)</h3>  
+<h3>@Html.DisplayNameFor(model => model.CookTime): @Html.DisplayFor(model => model.CookTime)</h3>  
+<h3>@Html.DisplayNameFor(model => model.ServingSize): @Html.DisplayFor(model => model.ServingSize)</h3>  
+<h3>@Html.DisplayNameFor(model => model.UrlLink): @Html.DisplayFor(model => model.UrlLink)</h3>  
+
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>This item does not have any categories yet!</p>
+}
+else
+{
+  <h4>This recipe has the following category tags:</h4>
+  <ul>
+    @foreach(CategoryRecipe join in Model.JoinEntities)
+    {
+      <li>Category: @join.Category.Type</li>
+      @using (Html.BeginForm("DeleteJoin", "Recipes"))
+      {
+        @Html.Hidden("joinId", @join.CategoryRecipeId)
+        <input type="submit" value="Delete"/>
+      }
+    }
+  </ul>
+}
+
+<p>@Html.ActionLink("Back to list", "Index")</p>
+<p>@Html.ActionLink("Edit Recipe", "Edit", new { id = Model.RecipeId })</p>
+<p>@Html.ActionLink("Add a Category", "AddCategory", new { id = Model.RecipeId })</p>
+<p>@Html.ActionLink("Delete Recipe", "Delete", new { id = Model.RecipeId })</p>

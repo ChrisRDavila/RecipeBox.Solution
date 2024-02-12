@@ -2,5 +2,50 @@
   Layout = "_Layout";
 }
 
-<h1>Welcome to the Project Name!</h1>
-<p>@Html.ActionLink("See all objects", "Route", "Objects")</p> <p>@Html.ActionLink("See all classname2", "Route", "ClassName2")</p>
+@using RecipeBox.Models;
+
+<h1>Welcome to the Recipe Box!</h1>
+
+<hr>
+
+<h4>Categories</h4>
+@if (Model["categories"].Length == 0)
+{
+  <p>No categories have been added yet!</p>
+} 
+<ul>
+  @foreach (Category cat in Model["categories"])
+  {
+    <li>@Html.ActionLink(@cat.Type, "Details", "Categories", new { id = @cat.CategoryId})</li>
+  }
+</ul>
+
+
+@if (User.Identity.IsAuthenticated)
+{
+  <p>@Html.ActionLink("Manage categories", "Index", "Categories")</p>
+  <br />
+  <h4>Recipes for @User.Identity.Name</h4>
+  @if (Model["recipes"].Length == 0)
+  {
+    <p>No recipes have been added yet!</p>
+  } 
+  <ul>
+    @foreach (Recipe recipe in Model["recipes"])
+    {
+      <li>@Html.ActionLink(@recipe.Name, "Details", "Recipes", new { id = @recipe.RecipeId})</li>
+    }
+  </ul>
+  <p>@Html.ActionLink("Manage recipes", "Index", "Recipes")</p>
+}
+else
+{
+  <h4>Recipes</h4>
+  <p>Please @Html.ActionLink("log in", "LogIn", "Account") to view or manage your recipes.</p>
+}
+
+<hr>
+
+
+
+<p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>

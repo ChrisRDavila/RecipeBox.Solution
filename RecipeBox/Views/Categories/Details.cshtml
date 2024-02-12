@@ -1,0 +1,48 @@
+@{
+  Layout = "_Layout";
+}
+
+@model RecipeBox.Models.Category
+@using RecipeBox.Models;
+@using System.Collections.Generic;
+
+<h2>@ViewBag.PageTitle</h2>
+  
+
+<p><strong>Recipes linked to @Model.Type:</strong>
+
+  @if (Model.JoinEntities.Count == 0)
+{
+  <p>@Model.Type does not currently have any linked recipes.</p>
+}
+else 
+{
+    @foreach(CategoryRecipe join in Model.JoinEntities)
+    {
+      <li>@Html.ActionLink($"{join.Recipe.Name}", "Details", "Recipes", new {id = join.Recipe.RecipeId})</li>
+      @using (Html.BeginForm("DeleteRecipeLink", "Categories"))
+      {
+        @Html.Hidden("categoryRecipeId", @join.CategoryRecipeId)
+        <input type="submit" value="Delete"/>
+      }
+    }
+}
+</p>
+<p>
+@if (ViewBag.RecipesCount >= 1)
+{
+  @Html.ActionLink("Link a Recipe", "AddRecipe", new { id = Model.CategoryId })
+}
+else
+{
+  <p class="error">You must <span>@Html.ActionLink("add a recipe", "Create", "Recipes")</span> before you can link it to @Model.Type.</p>
+}
+</p>
+
+<br /><br />
+<p>@Html.ActionLink("Edit this Category", "Edit", new { id = Model.CategoryId })</p>
+
+<p>@Html.ActionLink("Delete this Category", "Delete", new { id = Model.CategoryId })</p>
+
+<br /><br />
+<p>@Html.ActionLink("Back to list", "Index")</p>
