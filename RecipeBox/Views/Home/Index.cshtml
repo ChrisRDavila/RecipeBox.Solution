@@ -19,12 +19,23 @@
     <li>@Html.ActionLink(@cat.Type, "Details", "Categories", new { id = @cat.CategoryId})</li>
   }
 </ul>
+<p>@Html.ActionLink("Manage categories", "Index", "Categories")</p><br />
 
-
-@if (User.Identity.IsAuthenticated)
+<h4>Recipes</h4>
+@if (Model["recipes"].Length == 0)
 {
-  <p>@Html.ActionLink("Manage categories", "Index", "Categories")</p>
-  <br />
+  <p>No recipes have been added yet!</p>
+} 
+<ul>
+  @foreach (Recipe rcp in Model["recipes"])
+  {
+    <li>@Html.ActionLink(@cat.Type, "Details", "Recipes", new { id = @rcp.RecipeId})</li>
+  }
+</ul>
+<p>@Html.ActionLink("Manage recipes", "Index", "Recipes")</p><br />
+
+@* @if (User.Identity.IsAuthenticated)
+{
   <h4>Recipes for @User.Identity.Name</h4>
   @if (Model["recipes"].Length == 0)
   {
@@ -35,14 +46,15 @@
     {
       <li>@Html.ActionLink(@recipe.Name, "Details", "Recipes", new { id = @recipe.RecipeId})</li>
     }
-  </ul>
-  <p>@Html.ActionLink("Manage recipes", "Index", "Recipes")</p>
-}
+  </ul> 
+  
+}*@
 else
 {
   <h4>Recipes</h4>
   <p>Please @Html.ActionLink("log in", "LogIn", "Account") to view or manage your recipes.</p>
 }
+<p>@Html.ActionLink("Manage recipes", "Index", "Recipes")</p><br />
 
 <hr>
 

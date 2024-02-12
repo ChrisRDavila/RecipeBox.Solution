@@ -24,16 +24,23 @@ namespace RecipeBox.Controllers
       _db = db;
     }
 
+    // [AllowAnonymous]
+    // public async Task<ActionResult> Index()
+    // {
+    //   ViewBag.PageTitle = "Recipes";
+    //   string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    //   ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+    //   List<Recipe> userRecipe = _db.Recipes
+    //                 .Where(entry => entry.User.Id == currentUser.Id)
+    //                 .ToList();
+    //   return View(userRecipe);
+    // }
+
     [AllowAnonymous]
-    public async Task<ActionResult> Index()
+    public ActionResult Index()
     {
-      ViewBag.PageTitle = "Recipes";
-      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      List<Recipe> userRecipe = _db.Recipes
-                    .Where(entry => entry.User.Id == currentUser.Id)
-                    .ToList();
-      return View(userRecipe);
+      List<Recipe> model = _db.Recipes.ToList();
+      return View(model);
     }
 
     public ActionResult Create()
