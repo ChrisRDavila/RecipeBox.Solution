@@ -5,6 +5,9 @@ using RecipeBox.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Internal;
 using System.Threading.Tasks;
+// using Microsoft.AspNetCore.Authentication.Google;
+// using WebApplication16.Data;
+
 
 namespace RecipeBox
 {
@@ -14,6 +17,8 @@ namespace RecipeBox
     {
 
       WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+      var adminAccountUsername = builder.Configuration["Accounts:AdminUsername"];
+      var adminAccountPassword = builder.Configuration["Accounts:AdminPassword"];
 
       builder.Services.AddControllersWithViews();
 
@@ -29,6 +34,17 @@ namespace RecipeBox
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<RecipeBoxContext>()
                 .AddDefaultTokenProviders();
+
+      // builder.Services.AddRazorPages();
+
+      // builder.Services.AddAuthentication()
+      // .AddGoogle(options =>
+      // {
+      //   IConfigurationSection googleAuthNSection =
+      //   config.GetSection("Authentication:Google");
+      //   options.ClientId = googleAuthNSection["ClientId"];
+      //   options.ClientSecret = googleAuthNSection["ClientSecret"];
+      // });
 
       WebApplication app = builder.Build();
 
@@ -61,14 +77,15 @@ namespace RecipeBox
       using (var scope = app.Services.CreateScope())
       {
         var _userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        string email = "admin@admin.com";
-        string password = "Password#1";
+        string email = adminAccountUsername;
+        string password = adminAccountPassword;
 
         if (await _userManager.FindByEmailAsync(email) == null)
         {
           var User = new ApplicationUser();
           User.UserName = email;
           User.Email = email;
+          User.EmailConfirmed = true;
           await _userManager.CreateAsync(User, password);
           await _userManager.AddToRoleAsync(User, "Admin");
         }
