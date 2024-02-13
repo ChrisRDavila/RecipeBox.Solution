@@ -6,6 +6,7 @@
 
 @model LoginViewModel
 
+<div class="error">@ViewBag.ErrorMessage</div>
 <h2>Log in with your account</h2>
 <hr />
 
@@ -13,7 +14,6 @@
 {
   @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:") 
 }
-<div class="error">@ViewBag.ErrorMessage</div>
 
 @using (Html.BeginForm())
 {

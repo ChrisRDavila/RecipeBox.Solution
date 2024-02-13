@@ -42,6 +42,7 @@ namespace RecipeBox.Controllers
         IdentityResult result = await _userManager.CreateAsync(user, model.Password);
         if (result.Succeeded)
         {
+          await _userManager.AddToRoleAsync(user, "User");
           return RedirectToAction("Index");
         }
         else
