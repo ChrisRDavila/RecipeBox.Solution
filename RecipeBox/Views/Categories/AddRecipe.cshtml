@@ -1,0 +1,21 @@
+@{
+  Layout = "_Layout";
+}
+
+@model RecipeBox.Models.Category
+
+<h2>Add a recipe</h2>
+
+<h4>Add a recipe to this category: @Html.DisplayFor(model => model.Type)</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.CategoryId)
+
+    @Html.Label("Select recipe")
+    @Html.DropDownList("RecipeId")
+
+    <input type="submit" value="Save" />
+}
+
+<p>@Html.ActionLink("Back to list", "Index")</p>

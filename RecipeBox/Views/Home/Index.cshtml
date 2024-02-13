@@ -27,9 +27,9 @@
   <p>No recipes have been added yet!</p>
 } 
 <ul>
-  @foreach (Recipe rcp in Model["recipes"])
+  @foreach (Recipe recipe in Model["recipes"])
   {
-    <li>@Html.ActionLink(@cat.Type, "Details", "Recipes", new { id = @rcp.RecipeId})</li>
+    <li>@Html.ActionLink(@recipe.Name, "Details", "Recipes", new { id = @recipe.RecipeId})</li>
   }
 </ul>
 <p>@Html.ActionLink("Manage recipes", "Index", "Recipes")</p><br />
@@ -49,12 +49,11 @@
   </ul> 
   
 }*@
-else
+@* else
 {
   <h4>Recipes</h4>
   <p>Please @Html.ActionLink("log in", "LogIn", "Account") to view or manage your recipes.</p>
-}
-<p>@Html.ActionLink("Manage recipes", "Index", "Recipes")</p><br />
+} *@
 
 <hr>
 

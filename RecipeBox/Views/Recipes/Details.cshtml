@@ -14,7 +14,7 @@
 <h3>@Html.DisplayNameFor(model => model.Directions): @Html.DisplayFor(model => model.Directions)</h3>  
 <h3>@Html.DisplayNameFor(model => model.CookTime): @Html.DisplayFor(model => model.CookTime)</h3>  
 <h3>@Html.DisplayNameFor(model => model.ServingSize): @Html.DisplayFor(model => model.ServingSize)</h3>  
-<h3>@Html.DisplayNameFor(model => model.UrlLink): @Html.DisplayFor(model => model.UrlLink)</h3>  
+<h3>@Html.DisplayNameFor(model => model.UrlLink): <a href=@Model.UrlLink>@Model.UrlLink</a></h3>  
 
 @if(@Model.JoinEntities.Count == 0)
 {
@@ -27,16 +27,23 @@ else
     @foreach(CategoryRecipe join in Model.JoinEntities)
     {
       <li>Category: @join.Category.Type</li>
-      @using (Html.BeginForm("DeleteJoin", "Recipes"))
+      @using (Html.BeginForm("DeleteRecipeLink", "Recipes", "www"))
       {
-        @Html.Hidden("joinId", @join.CategoryRecipeId)
+        @Html.Hidden("categoryRecipeId", @join.CategoryRecipeId)
         <input type="submit" value="Delete"/>
       }
     }
   </ul>
 }
 
-<p>@Html.ActionLink("Back to list", "Index")</p>
+@if (User.Identity.IsAuthenticated)
+{
+  <p>@Html.ActionLink("Back to List", "Index")</p>
+}
+else
+{
+  <p>@Html.ActionLink("Back Home", "Index", "Home")</p> 
+}
 <p>@Html.ActionLink("Edit Recipe", "Edit", new { id = Model.RecipeId })</p>
 <p>@Html.ActionLink("Add a Category", "AddCategory", new { id = Model.RecipeId })</p>
 <p>@Html.ActionLink("Delete Recipe", "Delete", new { id = Model.RecipeId })</p>

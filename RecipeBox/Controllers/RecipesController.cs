@@ -24,24 +24,18 @@ namespace RecipeBox.Controllers
       _db = db;
     }
 
-    // [AllowAnonymous]
-    // public async Task<ActionResult> Index()
-    // {
-    //   ViewBag.PageTitle = "Recipes";
-    //   string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-    //   ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-    //   List<Recipe> userRecipe = _db.Recipes
-    //                 .Where(entry => entry.User.Id == currentUser.Id)
-    //                 .ToList();
-    //   return View(userRecipe);
-    // }
-
     [AllowAnonymous]
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-      List<Recipe> model = _db.Recipes.ToList();
-      return View(model);
+      ViewBag.PageTitle = "Recipes";
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      List<Recipe> userRecipe = _db.Recipes
+                    .Where(entry => entry.User.Id == currentUser.Id)
+                    .ToList();
+      return View(userRecipe);
     }
+
 
     public ActionResult Create()
     {
@@ -117,12 +111,17 @@ namespace RecipeBox.Controllers
       return RedirectToAction("Index");
     }
 
-    public ActionResult AddCategory(int id)
+    public async Task<ActionResult> AddCategory(int id)
     {
       Recipe thisRecipe = _db.Recipes
         .Include(rcp => rcp.JoinEntities)
         .FirstOrDefault(rcp => rcp.RecipeId == id);
-      ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Type");
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      List<Category> userCategories = _db.Categories
+        .Where(entry => entry.User.Id == currentUser.Id)
+        .ToList();
+      ViewBag.CategoryId = new SelectList(_db.Categories.Where(entry => entry.User.Id == currentUser.Id), "CategoryId", "Type");
       ViewBag.PageTitle = $"Link {thisRecipe.Name} To Category";
       return View(thisRecipe);
     }
@@ -152,3 +151,24 @@ namespace RecipeBox.Controllers
     }
   }
 }
+
+
+// [AllowAnonymous]
+//     public async Task<ActionResult> Index()
+//     {
+//       if (User.Identity.IsAuthenticated)
+//       {
+//         ViewBag.PageTitle = "Recipes";
+//         string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+//         ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+//         List<Recipe> userRecipe = _db.Recipes
+//                       .Where(entry => entry.User.Id == currentUser.Id)
+//                       .ToList();
+//         return View(userRecipe);
+//       }
+//       else
+//       {
+//         List<Recipe> model = _db.Recipes.ToList();
+//         return View(model);
+//       }
+//     }

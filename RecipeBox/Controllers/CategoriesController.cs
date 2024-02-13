@@ -24,24 +24,18 @@ namespace RecipeBox.Controllers
       _db = db;
     }
 
-    // [AllowAnonymous]
-    // public async Task<ActionResult> Index()
-    // {
-    //   ViewBag.PageTitle = "Categories";
-    //   string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-    //   ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-    //   List<Category> userCategory = _db.Categories
-    //             .Where(entry => entry.User.Id == currentUser.Id)
-    //             .ToList();
-    //   return View(userCategory);
-    // }
-
     [AllowAnonymous]
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-      List<Category> model = _db.Categories.ToList();
-      return View(model);
+      ViewBag.PageTitle = "Categories";
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      List<Category> userCategory = _db.Categories
+                .Where(entry => entry.User.Id == currentUser.Id)
+                .ToList();
+      return View(userCategory);
     }
+
 
 
 
@@ -121,12 +115,17 @@ namespace RecipeBox.Controllers
       return RedirectToAction("Index");
     }
 
-    public ActionResult AddRecipe(int id)
+    public async Task<ActionResult> AddRecipe(int id)
     {
       Category thisCategory = _db.Categories
         .Include(ctg => ctg.JoinEntities)
         .FirstOrDefault(ctg => ctg.CategoryId == id);
-      ViewBag.RecipeId = new SelectList(_db.Recipes, "RecipeId", "RecipeName");
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      List<Recipe> userRecipes = _db.Recipes
+        .Where(entry => entry.User.Id == currentUser.Id)
+        .ToList();
+      ViewBag.RecipeId = new SelectList(_db.Recipes.Where(entry => entry.User.Id == currentUser.Id), "RecipeId", "Name");
       ViewBag.PageTitle = $"Link {thisCategory.Type} To Recipe";
       return View(thisCategory);
     }

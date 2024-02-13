@@ -20,12 +20,13 @@
 
   @Html.LabelFor(model => model.Rating)
   @Html.TextBoxFor(model => model.Rating)
+  @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger"})<br />
 
   @Html.LabelFor(model => model.Ingredients)
-  @Html.TextBoxFor(model => model.Ingredients)
+  @Html.TextAreaFor(model => model.Ingredients)
 
   @Html.LabelFor(model => model.Directions)
-  @Html.TextBoxFor(model => model.Directions)
+  @Html.TextAreaFor(model => model.Directions)
 
   @Html.LabelFor(model => model.CookTime)
   @Html.TextBoxFor(model => model.CookTime)
