@@ -13,6 +13,7 @@
 {
   @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:") 
 }
+<div class="error">@ViewBag.ErrorMessage</div>
 
 @using (Html.BeginForm())
 {

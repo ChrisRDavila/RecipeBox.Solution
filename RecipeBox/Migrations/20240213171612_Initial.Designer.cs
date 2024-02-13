@@ -11,8 +11,8 @@ using RecipeBox.Models;
 namespace RecipeBox.Migrations
 {
     [DbContext(typeof(RecipeBoxContext))]
-    [Migration("20240212190521_AddUserPropertyToCategoryAndRecipeEntities")]
-    partial class AddUserPropertyToCategoryAndRecipeEntities
+    [Migration("20240213171612_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -219,12 +219,6 @@ namespace RecipeBox.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("CookMethod")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Protein")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Type")
                         .HasColumnType("longtext");
 
@@ -265,8 +259,8 @@ namespace RecipeBox.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<float>("CookTime")
-                        .HasColumnType("float");
+                    b.Property<string>("CookTime")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -283,8 +277,8 @@ namespace RecipeBox.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<float>("ServingSize")
-                        .HasColumnType("float");
+                    b.Property<string>("ServingSize")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UrlLink")
                         .HasColumnType("longtext");

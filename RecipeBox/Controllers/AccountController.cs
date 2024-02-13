@@ -55,8 +55,9 @@ namespace RecipeBox.Controllers
       }
     }
 
-        public ActionResult Login()
+        public ActionResult Login(string errorMessage)
     {
+      ViewBag.ErrorMessage = errorMessage;
       return View();
     }
 
@@ -87,6 +88,11 @@ namespace RecipeBox.Controllers
     {
       await _signInManager.SignOutAsync();
       return RedirectToAction("Index");
+    }
+
+    public ActionResult AccessDenied()
+    {
+      return View();
     }
   }
 }

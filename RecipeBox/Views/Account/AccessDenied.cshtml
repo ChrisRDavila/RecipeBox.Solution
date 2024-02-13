@@ -1,0 +1,15 @@
+@{
+  Layout = "_Layout";
+}
+
+@using RecipeBox.ViewModels
+
+<h2>OOPSIE! Access denied!</h2>
+<hr />
+
+<h3>No permissions for you!</h3>
+<p>Your account doesn't have permissions to do the thing.</p>
+
+
+<p>@Html.ActionLink("Register for an account", "Register")</p>
+<p>@Html.ActionLink("Back to accounts page", "Index")</p>

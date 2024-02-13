@@ -19,7 +19,15 @@
     <li>@Html.ActionLink(@cat.Type, "Details", "Categories", new { id = @cat.CategoryId})</li>
   }
 </ul>
-<p>@Html.ActionLink("Manage categories", "Index", "Categories")</p><br />
+@if (User.Identity.IsAuthenticated)
+{
+  <p>@Html.ActionLink("Manage categories", "Index", "Categories")</p><br />
+}
+else
+{
+  <p>@Html.ActionLink("Manage categories", "LogIn", "Account", new {errorMessage = "Please log in to access this page"})</p><br />
+}
+
 
 <h4>Recipes</h4>
 @if (Model["recipes"].Length == 0)
@@ -32,7 +40,14 @@
     <li>@Html.ActionLink(@recipe.Name, "Details", "Recipes", new { id = @recipe.RecipeId})</li>
   }
 </ul>
+@if (User.Identity.IsAuthenticated)
+{
 <p>@Html.ActionLink("Manage recipes", "Index", "Recipes")</p><br />
+}
+else
+{
+  <p>@Html.ActionLink("Manage recipes", "LogIn", "Account", new {errorMessage = "Please log in to access this page"})</p><br />
+}
 
 @* @if (User.Identity.IsAuthenticated)
 {

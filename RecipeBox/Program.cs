@@ -24,7 +24,7 @@ namespace RecipeBox
                           )
                         )
                       );
-      
+
       builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<RecipeBoxContext>()
@@ -38,7 +38,7 @@ namespace RecipeBox
 
       app.UseRouting();
 
-      app.UseAuthentication(); 
+      app.UseAuthentication();
       app.UseAuthorization();
 
       app.MapControllerRoute(
@@ -54,22 +54,23 @@ namespace RecipeBox
         foreach (var role in roles)
         {
           if (!await roleManager.RoleExistsAsync(role))
-              await roleManager.CreateAsync(new IdentityRole(role));
-        } 
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
       }
-      
+
       using (var scope = app.Services.CreateScope())
       {
         var _userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
         string email = "admin@admin.com";
         string password = "Password#1";
 
-        if(await _userManager.FindByEmailAsync(email) == null)
+        if (await _userManager.FindByEmailAsync(email) == null)
         {
           var User = new ApplicationUser();
           User.UserName = email;
           User.Email = email;
           await _userManager.CreateAsync(User, password);
+          await _userManager.AddToRoleAsync(User, "Admin");
         }
       }
 
