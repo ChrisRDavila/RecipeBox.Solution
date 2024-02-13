@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace RecipeBox.Controllers
 {
-  [Authorize]
+  [Authorize(Roles = "Admin, User")]
   public class RecipesController : Controller
   {
     private readonly RecipeBoxContext _db;

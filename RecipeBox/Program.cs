@@ -4,12 +4,13 @@ using Microsoft.Extensions.DependencyInjection;
 using RecipeBox.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Internal;
+using System.Threading.Tasks;
 
 namespace RecipeBox
 {
   class Program
   {
-    public static async void Main(string[] args)
+    public static async Task Main(string[] args)
     {
 
       WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -59,16 +60,16 @@ namespace RecipeBox
       
       using (var scope = app.Services.CreateScope())
       {
-        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        var _userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
         string email = "admin@admin.com";
-        string password = "password#1";
+        string password = "Password#1";
 
-        if(await userManager.FindByEmailAsync(email) == null)
+        if(await _userManager.FindByEmailAsync(email) == null)
         {
-          var user = new ApplicationUser();
-          user.UserName = email;
-          user.Email = email;
-          await userManager.CreateAsync(user, password);
+          var User = new ApplicationUser();
+          User.UserName = email;
+          User.Email = email;
+          await _userManager.CreateAsync(User, password);
         }
       }
 
