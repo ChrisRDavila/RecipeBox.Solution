@@ -162,23 +162,3 @@ namespace RecipeBox.Controllers
   }
 }
 
-
-// [AllowAnonymous]
-//     public async Task<ActionResult> Index()
-//     {
-//       if (User.Identity.IsAuthenticated)
-//       {
-//         ViewBag.PageTitle = "Recipes";
-//         string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-//         ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-//         List<Recipe> userRecipe = _db.Recipes
-//                       .Where(entry => entry.User.Id == currentUser.Id)
-//                       .ToList();
-//         return View(userRecipe);
-//       }
-//       else
-//       {
-//         List<Recipe> model = _db.Recipes.ToList();
-//         return View(model);
-//       }
-//     }

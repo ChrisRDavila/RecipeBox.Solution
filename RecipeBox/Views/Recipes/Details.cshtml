@@ -46,6 +46,15 @@
   </div><br />
   
   <div class="Recipe-Details-recipeDetailsOptionsDiv">
+
+  @if (User.Identity.IsAuthenticated)
+  {
+    @using (Html.BeginForm("AddFavorite", "Recipes", FormMethod.Post))
+      {
+        @Html.Hidden("recipeId", rcp.RecipeId)
+        <input type="submit" value="Add to favorites" />
+      }
+  }
     <button>@Html.ActionLink("Edit Recipe", "Edit", new { id = rcp.RecipeId })</button>
     <button>@Html.ActionLink("Add a Category", "AddCategory", new { id = rcp.RecipeId })</button>
     <button>@Html.ActionLink("Delete Recipe", "Delete", new { id = rcp.RecipeId })</button>

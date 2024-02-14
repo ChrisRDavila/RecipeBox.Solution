@@ -34,12 +34,12 @@ else
 {
   <p>No recipes have been added yet!</p>
 } 
-<ul>
+<div class="container">
   @foreach (Recipe recipe in Model["recipes"])
   {
-    <li>@Html.ActionLink(@recipe.Name, "Details", "Recipes", new { id = @recipe.RecipeId}) | @recipe.Rating</li>
+    <div class="card">@Html.ActionLink(@recipe.Name, "Details", "Recipes", new { id = @recipe.RecipeId}) | @recipe.Rating</div>
   }
-</ul>
+</div>
 @if (User.Identity.IsAuthenticated)
 {
 <p>@Html.ActionLink("Manage recipes", "Index", "Recipes")</p><br />
@@ -71,3 +71,7 @@ else
 } *@
 
 <hr>
+@if (User.Identity.IsAuthenticated)
+{
+  <button>@Html.ActionLink("Favorites", "Favorites", "Recipes")</button>  
+}

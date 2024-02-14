@@ -1,23 +1,28 @@
+Styling:
 - have gif pop up on modal
 -header with accordian for search bar, log in, link to git hubs
+-change rating to some sort of icon like filled stars like # # # o
+allow user profile to have more info like yelp? food blog entries? add user picture, add completed meal picture, model.count for recipes rated?
+-with full database, have a picture based index displaying seafood picture that can click and link to all seafood recipes via search query?
+-search, home icons
+-- add link in accordian to contact us and us gmail service that connects to email
+
+
+Functionality:
 -3 roles, one admin accesses everything, premium can view recipes and possibly rate no create or delete, unlogged can just see home index of recipes
-- add cooking music to details page?
 - create premium role that is only one allowed to see recipes above rating of 8
-on splash page, create another API call that renders image and links to cooking section artiles from NYT
+-on splash page, create another API call that renders image and links to cooking section articles from NYT
 -use Math.random to generate a number, link to recipe id in db and have a new recommended recipe generated everytime view home page
 -if we tag recipes with side, main, desert, can generate full course meal suggestions
--change rating to some sort of icon like filled starts like # # # o
-allow user profile to have more info like yelp? food blog entries? add user picture, add completed meal picture, model.count for reipes rated?
--with full database, have a picture based index displaying seafood picture that can click and link to all seafood recipes via search query?
 -many to many relationship for restaurants that have the dish
 -add difficulty level property to recipes?
 -add about page for website, link to accordian
--search, home icons
--cost estimation on ingredients? this may require ingredients class
--link to post recipe with log in on social media, this may require fiuring out multi-factor log in using twitter or fbook
--section with pet recipes (lol)
 -allow to upload videos of making
--- add link in accordian to contact us and us gmail service that connects to email
+-section with pet recipes (lol)
+- add favorites section
+-cost estimation on ingredients? this may require ingredients class
+- add cooking music to details page
+-link to post recipe with log in on social media, this may require fiuring out multi-factor log in using twitter or fbook
 
 
 -styling examples :
