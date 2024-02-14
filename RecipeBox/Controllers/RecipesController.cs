@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using System.Security.Claims;
 
@@ -17,11 +18,13 @@ namespace RecipeBox.Controllers
   {
     private readonly RecipeBoxContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly string _apiKey;
 
-    public RecipesController(UserManager<ApplicationUser> userManager,RecipeBoxContext db)
+    public RecipesController(UserManager<ApplicationUser> userManager,RecipeBoxContext db, IConfiguration configuration)
     {
       _userManager = userManager;
       _db = db;
+      _apiKey = configuration["GIF"];
     }
 
     [AllowAnonymous]
@@ -58,7 +61,7 @@ namespace RecipeBox.Controllers
         Recipe.User = currentUser;
         _db.Recipes.Add(Recipe);
         _db.SaveChanges();
-        return View("Index");
+        return RedirectToAction("Details", new { id = Recipe.RecipeId });
       }
     }
     [AllowAnonymous]
@@ -69,7 +72,14 @@ namespace RecipeBox.Controllers
           .ThenInclude(join => join.Category)
           .FirstOrDefault(rcp => rcp.RecipeId == id);
       ViewBag.PageTitle = $"Recipe Details - {thisRecipe.Name} ";
-      return View(thisRecipe);
+      string search = thisRecipe.Name;
+      Giphy foodGif = Giphy.GetGiphy(_apiKey, search);
+      Giphy[] gifList = {foodGif};
+      Recipe[] recipeList = {thisRecipe};
+      Dictionary<string,object[]> myModel = new Dictionary<string, object[]>();
+      myModel.Add("foodGif",gifList);
+      myModel.Add("recipeData",recipeList);
+      return View(myModel);
     }
 
     public ActionResult Edit(int id)

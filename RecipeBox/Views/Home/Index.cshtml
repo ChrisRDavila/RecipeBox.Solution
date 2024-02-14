@@ -37,7 +37,7 @@ else
 <ul>
   @foreach (Recipe recipe in Model["recipes"])
   {
-    <li>@Html.ActionLink(@recipe.Name, "Details", "Recipes", new { id = @recipe.RecipeId})</li>
+    <li>@Html.ActionLink(@recipe.Name, "Details", "Recipes", new { id = @recipe.RecipeId}) | @recipe.Rating</li>
   }
 </ul>
 @if (User.Identity.IsAuthenticated)
@@ -71,7 +71,3 @@ else
 } *@
 
 <hr>
-
-
-
-<p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>

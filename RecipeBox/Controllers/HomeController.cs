@@ -17,8 +17,8 @@ namespace RecipeBox.Controllers
       [HttpGet("/")]
       public ActionResult Index()
       {
-        Category[] cats = _db.Categories.ToArray();
-        Recipe[] recipes = _db.Recipes.ToArray();
+        Category[] cats = _db.Categories.OrderBy(categories => categories.Type).ToArray();
+        Recipe[] recipes = _db.Recipes.OrderByDescending(recipes => recipes.Rating).ToArray();
         Dictionary<string,object[]> model = new Dictionary<string, object[]>();
         model.Add("categories", cats);
         model.Add("recipes", recipes);

@@ -6,6 +6,18 @@
       <input type="text" name="query" placeholder="Search" />
       <input type="submit" value="Search" />
     }
+    <div>
+      @if (User.Identity.IsAuthenticated)
+      {
+        <br />
+        <p>
+          Welcome, <span style= "color: red" >@User.Identity.Name</span>!<br />
+          @Html.ActionLink("Manage Account", "Index", "Account")
+        </p>
+      }
+      else
+      {<p>@Html.ActionLink("Log In / Register", "Index", "Account")</p>}
+    </div>
   </div>
 </div>
 <br /><br />

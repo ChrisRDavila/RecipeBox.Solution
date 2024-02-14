@@ -2,48 +2,59 @@
   Layout = "_Layout";
 }
 
-@using RecipeBox.Models
-@model RecipeBox.Models.Recipe
+@using RecipeBox.Models;
 
 <h2>Recipe Details</h2>
 <hr />
-<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
-<h3>@Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</h3>
-<h3>@Html.DisplayNameFor(model => model.Rating): @Html.DisplayFor(model => model.Rating)</h3>  
-<h3>@Html.DisplayNameFor(model => model.Ingredients): @Html.DisplayFor(model => model.Ingredients)</h3>  
-<h3>@Html.DisplayNameFor(model => model.Directions): @Html.DisplayFor(model => model.Directions)</h3>  
-<h3>@Html.DisplayNameFor(model => model.CookTime): @Html.DisplayFor(model => model.CookTime)</h3>  
-<h3>@Html.DisplayNameFor(model => model.ServingSize): @Html.DisplayFor(model => model.ServingSize)</h3>  
-<h3>@Html.DisplayNameFor(model => model.UrlLink): <a href=@Model.UrlLink>@Model.UrlLink</a></h3>  
 
-@if(@Model.JoinEntities.Count == 0)
+@foreach (Recipe rcp in Model["recipeData"])
 {
-  <p>This item does not have any categories yet!</p>
-}
-else
-{
-  <h4>This recipe has the following category tags:</h4>
-  <ul>
-    @foreach(CategoryRecipe join in Model.JoinEntities)
+  <div class="Recipe-Details-recipeDetailsDiv">
+    <p><strong>Recipe Name: </strong> @rcp.Name</p>
+    <p><strong>Recipe Description: </strong> @rcp.Description</p>
+    <p><strong>Recipe Rating: </strong> @rcp.Rating</p>
+    <p><strong>Recipe Ingredients: </strong> @rcp.Ingredients</p>
+    <p><strong>Recipe Directions: </strong> @rcp.Directions</p>
+    <p><strong>Recipe Cook Time: </strong> @rcp.CookTime</p>
+    <p><strong>Recipe Serving Size: </strong> @rcp.ServingSize</p>
+    <p><strong>Recipe Link: </strong> <a href="@(rcp.UrlLink)">@rcp.UrlLink</a></p>
+    @foreach (Giphy gif in Model["foodGif"])
     {
-      <li>Category: @join.Category.Type</li>
-      @using (Html.BeginForm("DeleteRecipeLink", "Recipes", "www"))
-      {
-        @Html.Hidden("categoryRecipeId", @join.CategoryRecipeId)
-        <input type="submit" value="Delete"/>
-      }
+      <iframe class="foodGif" src="@(gif.Embed_Url)" alt="@(gif.Title)" allowFullScreen><a href="@(gif.Embed_Url)">via GIPHY</a></iframe>
     }
-  </ul>
+  </div><br />
+
+  <div class="Recipe-Details-recipeDetailsLinkedCategoriesDiv">
+    @if(rcp.JoinEntities.Count == 0)
+    {
+      <p>This item does not have any categories yet!</p>
+    }
+    else
+    {
+      <h4>This recipe has the following category tags:</h4>
+      @foreach(CategoryRecipe join in rcp.JoinEntities)
+        {
+          <li>Category: @Html.ActionLink(@join.Category.Type, "Details", "Categories", new { id = join.Category.CategoryId})
+            @using (Html.BeginForm("DeleteRecipeLink", "Recipes", "www"))
+            {
+              @Html.Hidden("categoryRecipeId", @join.CategoryRecipeId)
+              <input type="submit" value="Delete"/>
+            }
+          </li>
+        }
+    }
+  </div><br />
+  
+  <div class="Recipe-Details-recipeDetailsOptionsDiv">
+    <button>@Html.ActionLink("Edit Recipe", "Edit", new { id = rcp.RecipeId })</button>
+    <button>@Html.ActionLink("Add a Category", "AddCategory", new { id = rcp.RecipeId })</button>
+    <button>@Html.ActionLink("Delete Recipe", "Delete", new { id = rcp.RecipeId })</button>
+  </div>
 }
 
+
+<br />
 @if (User.Identity.IsAuthenticated)
-{
-  <p>@Html.ActionLink("Back to List", "Index")</p>
-}
+{<p>@Html.ActionLink("Back to List", "Index")</p>}
 else
-{
-  <p>@Html.ActionLink("Back Home", "Index", "Home")</p> 
-}
-<p>@Html.ActionLink("Edit Recipe", "Edit", new { id = Model.RecipeId })</p>
-<p>@Html.ActionLink("Add a Category", "AddCategory", new { id = Model.RecipeId })</p>
-<p>@Html.ActionLink("Delete Recipe", "Delete", new { id = Model.RecipeId })</p>
+{<p>@Html.ActionLink("Back Home", "Index", "Home")</p>}
