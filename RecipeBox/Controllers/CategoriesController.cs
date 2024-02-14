@@ -33,6 +33,7 @@ namespace RecipeBox.Controllers
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
       List<Category> userCategory = _db.Categories
                 .Where(entry => entry.User.Id == currentUser.Id)
+                .OrderBy(entry => entry.Type)
                 .ToList();
       return View(userCategory);
     }
