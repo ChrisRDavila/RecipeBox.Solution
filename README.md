@@ -1,19 +1,24 @@
-# (Application Name) remove parens
+# Recipe Box
 
-#### (Brief Description of Application) remove parens
+#### C Sharp MVC structure project using MySQl, EfCore, RestSharp, Microsoft Identity to create database with full CRUD and user roles
 
-#### By (Your Name Here) remove parans
+#### By Christopher Davila, Aaron Mejia, Zurisadai Gallegos
 
 ## Technologies Used
 
-* _dot net 6_
-* _cshtml_
-* _C#_
-* _ASP Core MVC_
-_MS Build_
+* _.NET 6.0.0_
+* _MySQL_
+* _Microsoft EF Core 6.0.0_
+* _Microsoft AspNet Core Identity_
+* _Newtonsoft.Json_
+* _Pomelo EfCore for MySQL_
+* _RestSharp_
+* _Giphy Developers API_
 
 
 ## Description
+
+This application is built into a C Sharp MVC framework and uses Microsoft EF Core's implicit building and directives to create a database code first via MySQL.  This database will track entries from the projects full CRUD functionality display entries based on specified queries in the controllers and views.  We also use RestSharp to make an API call to Giphy, and using the name property of our recipe database entires will make a query to Giphy, and then uses NewtonSoft to parse the JSON object response and display a food name related GIF on the detail page for a specific entry with its own unique ID.  Weve also used Microsofts EF Core Identity services to create a user registration and delegated specific roles for Users.  Admin has full CRUD functionality, a logged in has CRUD for Recipes but not categories, and non logged in users can simply view the recipes on the splash page.  A User should only have CRUD for there own entries created while logged in.
 
 ## Setup/Installation Requirements
 
