@@ -1,17 +1,17 @@
-<div id="header">
-  <h1>@Html.ActionLink("Yup, this is the header", "Index", "Home")</h1>
+<div  id="header" class="header">
+  <h1>@Html.ActionLink("Recipe Box", "Index", "Home")</h1>
   <div>
     @using (Html.BeginForm("Index", "Search", FormMethod.Get))
     {
-      <input type="text" name="query" placeholder="Search" />
-      <input type="submit" value="Search" />
+      <input id="s-bar" type="text" name="query" placeholder="Search" />
+      <input id="s-button" type="submit" value="Search" />
     }
     <div>
       @if (User.Identity.IsAuthenticated)
       {
         <br />
         <p>
-          Welcome, <span style= "color: red" >@User.Identity.Name</span>!<br />
+          Welcome, <span style= "color: #33dCFF" >@User.Identity.Name</span>!<br />
           @Html.ActionLink("Manage Account", "Index", "Account")
         </p>
       }

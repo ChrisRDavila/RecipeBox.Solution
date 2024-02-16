@@ -14,6 +14,78 @@ div#footer {
   text-align: center;
 }
 
+#header form input {
+	background-color: black;
+	color: white;
+	border-color: white;
+	border: 2px;
+	border-style: outset;
+	border-color: snow;
+	border-radius: 8px;
+}
+
 .error {
 	color: red;
 }
+
+.protest-riot-regular {
+  font-family: "Protest Riot", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#header a {
+	font-family: "Protest Riot", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	color:aliceblue;
+}
+
+#header a:hover {
+	color:gold;
+}
+
+#header {
+	background-image: url(../img/food7.jpeg);
+	background-size: cover;
+  background-position:center;
+  background-repeat:none;
+	color:antiquewhite;
+	font-family: "Josefin Sans", sans-serif;
+}
+
+
+/* Star Rating System (Recipe Create and Edit Views) */
+
+.recipe-rating {
+	display: flex;
+	flex-direction: row-reverse;
+	float: left;
+	margin: 10px;
+}
+
+.recipe-rating > input {
+	display: none;
+}
+
+.recipe-rating > input:checked ~ label {
+	color: gold;    
+}
+.recipe-rating:not(:checked) > label:hover,
+.recipe-rating:not(:checked) > label:hover ~ label {
+	color: gold;  
+}
+.recipe-rating > input:checked + label:hover,
+.recipe-rating > input:checked + label:hover ~ label,
+.recipe-rating > input:checked ~ label:hover,
+.recipe-rating > input:checked ~ label:hover ~ label,
+.recipe-rating > label:hover ~ input:checked ~ label {
+	color: goldenrod;
+}
+
+
+
+
+
+
+

@@ -29,26 +29,38 @@ else
 }
 
 
+<div class="container">
+<div class="row">
 <h4>Recipes</h4>
 @if (Model["recipes"].Length == 0)
 {
   <p>No recipes have been added yet!</p>
 } 
-<ul>
   @foreach (Recipe recipe in Model["recipes"])
   {
-    <li>@Html.ActionLink(@recipe.Name, "Details", "Recipes", new { id = @recipe.RecipeId}) | @recipe.Rating</li>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-header">@recipe.Name</h5>
+          <p class="card-text">@recipe.Description</p> 
+          <p>⭐ @recipe.Rating</p>
+          <button class="btn btn-outline-warning">@Html.ActionLink("Show Recipe", "Details", "Recipes", new { id = @recipe.RecipeId})</button>
+        </div>
+      </div>
+    </div>
+    
   }
-</ul>
+
 @if (User.Identity.IsAuthenticated)
 {
-<p>@Html.ActionLink("Manage recipes", "Index", "Recipes")</p><br />
+  <button type="button" class="btn btn-outline-warning">@Html.ActionLink("Manage recipes", "Index", "Recipes")</button><br />
 }
 else
 {
   <p>@Html.ActionLink("Manage recipes", "LogIn", "Account", new {errorMessage = "Please log in to access this page"})</p><br />
 }
-
+</div>
+</div>
 @* @if (User.Identity.IsAuthenticated)
 {
   <h4>Recipes for @User.Identity.Name</h4>

@@ -3,13 +3,15 @@
 }
 
 @using RecipeBox.Models;
+<div class="container">
 
 <h2>Recipe Details</h2>
 <hr />
 
+
 @foreach (Recipe rcp in Model["recipeData"])
 {
-  <div class="Recipe-Details-recipeDetailsDiv">
+  <div class="shadow-sm p-4 mb-4 bg-white">
     <p><strong>Recipe Name: </strong> @rcp.Name</p>
     <p><strong>Recipe Description: </strong> @rcp.Description</p>
     <p><strong>Recipe Rating: </strong> @rcp.Rating</p>
@@ -17,14 +19,14 @@
     <p><strong>Recipe Directions: </strong> @rcp.Directions</p>
     <p><strong>Recipe Cook Time: </strong> @rcp.CookTime</p>
     <p><strong>Recipe Serving Size: </strong> @rcp.ServingSize</p>
-    <p><strong>Recipe Link: </strong> <a href="@(rcp.UrlLink)">@rcp.UrlLink</a></p>
+    <p><strong>Recipe Link: </strong> <a href="@(rcp.UrlLink)" target="_blank" rel="noopener noreferrer">@rcp.UrlLink</a></p>
     @foreach (Giphy gif in Model["foodGif"])
     {
       <iframe class="foodGif" src="@(gif.Embed_Url)" alt="@(gif.Title)" allowFullScreen><a href="@(gif.Embed_Url)">via GIPHY</a></iframe>
     }
   </div><br />
 
-  <div class="Recipe-Details-recipeDetailsLinkedCategoriesDiv">
+  <div class="shadow-sm p-4 mb-4 bg-white">
     @if(rcp.JoinEntities.Count == 0)
     {
       <p>This item does not have any categories yet!</p>
@@ -44,26 +46,22 @@
         }
     }
   </div><br />
+
   
   <div class="Recipe-Details-recipeDetailsOptionsDiv">
-
-  @if (User.Identity.IsAuthenticated)
-  {
-    @using (Html.BeginForm("AddFavorite", "Recipes", FormMethod.Post))
-      {
-        @Html.Hidden("recipeId", rcp.RecipeId)
-        <input type="submit" value="Add to favorites" />
-      }
-  }
-    <button>@Html.ActionLink("Edit Recipe", "Edit", new { id = rcp.RecipeId })</button>
-    <button>@Html.ActionLink("Add a Category", "AddCategory", new { id = rcp.RecipeId })</button>
-    <button>@Html.ActionLink("Delete Recipe", "Delete", new { id = rcp.RecipeId })</button>
+    <button type="button" class="btn btn-outline-warning">@Html.ActionLink("Edit Recipe", "Edit", new { id = rcp.RecipeId })</button>
+    <button type="button" class="btn btn-outline-warning">@Html.ActionLink("Add a Category", "AddCategory", new { id = rcp.RecipeId })</button>
+    <button type="button" class="btn btn-outline-warning">@Html.ActionLink("Delete Recipe", "Delete", new { id = rcp.RecipeId })</button>
   </div>
 }
 
+</div>
 
 <br />
+<div class="container"> 
 @if (User.Identity.IsAuthenticated)
-{<p>@Html.ActionLink("Back to List", "Index")</p>}
+{<h6>@Html.ActionLink("Back to List", "Index")</h6>}
 else
-{<p>@Html.ActionLink("Back Home", "Index", "Home")</p>}
+{<h6>@Html.ActionLink("Back Home", "Index", "Home")</h6>}
+<br />
+</div>

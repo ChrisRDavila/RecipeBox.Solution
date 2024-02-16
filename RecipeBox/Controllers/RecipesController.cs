@@ -101,7 +101,7 @@ namespace RecipeBox.Controllers
       {
       _db.Recipes.Update(rcp);
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new { id = rcp.RecipeId });
       }
     }
 
