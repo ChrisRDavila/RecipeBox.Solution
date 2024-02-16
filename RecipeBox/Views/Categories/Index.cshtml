@@ -4,23 +4,25 @@
 
 @using RecipeBox.Models;
 
-<div class="container">
+<div class="container" id="cat-index">
 <h2>@ViewBag.PageTitle</h2>
 
-<div class="shadow-sm p-4 mb-4 bg-white">
+  <div class="shadow-sm p-4 mb-4 bg-white">
+    <div class="container" id="category-card">
+    @if (@Model.Count == 0)
+    {
+      <p>No categories have been added yet.</p>
+    }
 
-@if (@Model.Count == 0)
-{
-  <p>No categories have been added yet.</p>
-}
+    @foreach (Category cgt in Model)
+    {
+      <li>@Html.ActionLink($"{cgt.Type}", "Details", new { id = cgt.CategoryId })</li>
+    }
 
-@foreach (Category cgt in Model)
-{
-  <li>@Html.ActionLink($"{cgt.Type}", "Details", new { id = cgt.CategoryId })</li>
-}
+    </div>
 
-</div>
-
-<button type="button" class="btn btn-outline-warning">@Html.ActionLink("Add New Category", "Create")</button>
-<button type="button" class="btn btn-outline-warning">@Html.ActionLink("Home", "Index", "Home")</button>
+    <button type="button" class="btn btn-outline-warning">@Html.ActionLink("Add New Category", "Create")</button>
+    <button type="button" class="btn btn-outline-warning">@Html.ActionLink("Home", "Index", "Home")</button>
+    </div>
+  </div>
 </div>

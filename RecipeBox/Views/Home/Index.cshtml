@@ -4,10 +4,12 @@
 
 @using RecipeBox.Models;
 
+<div class="container" id="splash-title">
 <h1>Welcome to the Recipe Box!</h1>
-
+</div>
 <hr>
 
+<div class="card" id="category-card">
 <h4>Categories</h4>
 @if (Model["categories"].Length == 0)
 {
@@ -27,9 +29,10 @@ else
 {
   <p>@Html.ActionLink("Manage categories", "LogIn", "Account", new {errorMessage = "Please log in to access this page"})</p><br />
 }
+</div>
 
 
-<div class="container">
+<div class="container" id="recipe-container">
 <div class="row">
 <h4>Recipes</h4>
 @if (Model["recipes"].Length == 0)
@@ -39,7 +42,7 @@ else
   @foreach (Recipe recipe in Model["recipes"])
   {
     <div class="col-md-4">
-      <div class="card">
+      <div class="card" id="recipe-card">
         <div class="card-body">
           <h5 class="card-header">@recipe.Name</h5>
           <p class="card-text">@recipe.Description</p> 

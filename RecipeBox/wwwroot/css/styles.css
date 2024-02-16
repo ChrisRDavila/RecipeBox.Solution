@@ -83,9 +83,77 @@ div#footer {
 	color: goldenrod;
 }
 
+#recipe-container {
+	/* background-image: url(../img/food3.jpeg); */
+	background-color: darkslategray;
+	background-size: cover;
+	background-position:center;
+	background-repeat:no-repeat;
+	font-family: "Josefin Sans", sans-serif;
+	width: 80%;
+	border-radius: 20px;
+	border: 2px;
+	border-color: aqua;
+}
 
+#recipe-container h4 {
+	color: salmon;
+	text-align: center;
+}
 
+#recipe-card {
+	background-color: beige;
+	opacity: .6;
+	color: darkblue;
+}
 
+#category-card {
+  font-family: "Josefin Sans", sans-serif;
+  color: salmon;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 20px;
+  background-color: rgb(203, 235, 218);
+  text-align: center;
+  text-indent: 10px;
+	padding-bottom: 20px;
+	padding: 6px 16px;
+	width: 80%;
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+	margin-top: 20px;
+	background-image: url(../img/food4.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: initial;
+  border-color: rgb(125, 197, 158);
+  border-style: outset;
+}
 
+#splash-title {
+	font-family: "Protest Riot", sans-serif;
+	font-size: 50px;
+	color: white;
+	background-color: aqua;
+	text-align: center;
+	margin-top: 20px;
+	border: 2px;
+	border-style:double;
+	border-color: gray;
+	box-shadow: #333;
+	opacity: .7;
+}
 
+#cat-index {
+	background-color: cornsilk;
+}
 
+div.shadow-sm.p-4.mb-4.bg-white {
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	transition: 0.3s;
+	border-radius: 20px;
+	background-color: rgb(203, 235, 218);
+	text-align: center;
+	text-indent: 10px;
+}
